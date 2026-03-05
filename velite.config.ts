@@ -28,6 +28,8 @@ const projects = defineCollection({
       slug: s.slug('project'),
       title: s.string(),
       description: s.string(),
+      overview: s.string().optional(),
+      approach: s.string().optional(),
       date: s.isodate(),
       tags: s.array(s.string()).optional(),
       coverImage: s.string().optional(),

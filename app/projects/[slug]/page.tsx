@@ -61,7 +61,9 @@ function DetailRow({
   const display = Array.isArray(value) ? value.join(', ') : value;
   return (
     <div className="py-3 md:py-4">
-      <dt className="text-sm text-neutral-500 dark:text-neutral-400">{label}</dt>
+      <dt className="text-sm text-neutral-500 dark:text-neutral-400">
+        {label}
+      </dt>
       <dd className="mt-1 text-neutral-900 dark:text-white">{display}</dd>
     </div>
   );
@@ -82,11 +84,11 @@ export default async function ProjectPage({
   });
 
   return (
-    <Container className="w-full hero-grid-bg">
+    <Container className="hero-grid-bg w-full">
       <div className="section-padding">
         {/* Hero Section */}
         <header className="mb-10 md:mb-24">
-          <h1 className="mb-4 text-3xl font-bold tracking-tight lowercase text-neutral-900 dark:text-white md:text-4xl">
+          <h1 className="mb-4 text-3xl font-bold lowercase tracking-tight text-neutral-900 dark:text-white md:text-4xl">
             {project.title}
           </h1>
           <p className="mb-8 max-w-2xl text-base text-neutral-600 dark:text-neutral-300 md:mb-10 md:text-lg">
@@ -110,49 +112,51 @@ export default async function ProjectPage({
                   'flex h-full w-full items-center justify-center bg-gradient-to-br',
                   gradient
                 )}
-              >
-              </div>
+              ></div>
             )}
           </div>
         </header>
 
         {/* Project Details - Two Columns */}
         <section className="mb-12 grid gap-8 dark:border-white/10 md:mb-20 md:grid-cols-[minmax(200px,280px)_1fr] md:gap-16">
-        <div className="md:sticky md:top-24 md:self-start">
-          <dl className="space-y-0">
-            <DetailRow label="Role" value={project.role} />
-            <DetailRow label="Client" value={project.client} />
-            <DetailRow label="Date" value={formattedDate} />
-            <DetailRow label="Deliverables" value={project.deliverables} />
-            <DetailRow label="Tools" value={project.tools} />
-          </dl>
+          <div className="md:sticky md:top-24 md:self-start">
+            <dl className="space-y-0">
+              <DetailRow label="Role" value={project.role} />
+              <DetailRow label="Client" value={project.client} />
+              <DetailRow label="Date" value={formattedDate} />
+              <DetailRow label="Deliverables" value={project.deliverables} />
+              <DetailRow label="Tools" value={project.tools} />
+            </dl>
           </div>
           <div className="flex flex-col justify-center">
-              <p className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
-                {project.description}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {project.repoUrl && (
-                  <a
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-10 items-center justify-center border border-neutral-300 px-4 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-50 dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
-                  >
-                    View on GitHub
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-10 items-center justify-center border border-neutral-300 px-4 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-50 dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
-                  >
-                    Live Demo
-                  </a>
-                )}
-              </div>
+            <p className="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
+              <span>{project.overview}</span>
+              <br />
+              <br />
+              <span>{project.approach}</span>
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {project.repoUrl && (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-10 items-center justify-center border border-neutral-300 px-4 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-50 dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
+                >
+                  View on GitHub
+                </a>
+              )}
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-10 items-center justify-center border border-neutral-300 px-4 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-50 dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
+                >
+                  Live Demo
+                </a>
+              )}
+            </div>
           </div>
         </section>
 
