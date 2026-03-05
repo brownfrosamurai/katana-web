@@ -1,0 +1,30 @@
+---
+title: Welcome to My Blog
+description: This is an example blog post showcasing MDX and frontmatter.
+date: 2025-01-15
+slug: example-post
+tags:
+  - introduction
+  - mdx
+featured: true
+---
+
+This is a sample blog post demonstrating how MDX content works with the portfolio. You can use **bold**, *italic*, and `inline code` in your posts.
+
+## Code Blocks
+
+Here's a code example:
+
+```tsx
+function Greeting({ name }: { name: string }) {
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+## Callout
+
+> This is a blockquote that could serve as a callout for important information.
+
+## Conclusion
+
+Thanks for reading! Add more posts by creating new `.mdx` files in the `content/blog` folder.

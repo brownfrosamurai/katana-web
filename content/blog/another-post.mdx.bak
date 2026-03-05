@@ -1,0 +1,25 @@
+---
+title: Getting Started with Next.js
+description: A quick guide to building with Next.js App Router.
+date: 2025-02-01
+slug: another-post
+tags:
+  - nextjs
+  - tutorial
+featured: false
+---
+
+# Getting Started with Next.js
+
+Next.js 15 brings powerful features for building modern web applications. The App Router provides a new paradigm for routing and layouts.
+
+## Key Features
+
+- **Server Components** by default for better performance
+- **Streaming** for faster perceived load times
+- **Built-in SEO** with metadata APIs
+- **TypeScript** support out of the box
+
+## Learn More
+
+Check out the [Next.js documentation](https://nextjs.org/docs) for in-depth guides.

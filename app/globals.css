@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.145 0 0);
+  /* Project card accent palette */
+  --accent-orange: #ea580c;
+  --accent-blue: #1e3a5f;
+  --accent-yellow: #eab308;
+  --accent-grey: #27272a;
+  --accent-grey-alt: #3f3f46;
+  --accent-green: #22c55e;
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.985 0 0);
+}
+
+/* Hero section backgrounds */
+.hero-grid-bg {
+  background-color: rgb(250 250 250);
+  position: relative;
+}
+
+.hero-grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0.04) 1px,
+    transparent 1px
+  );
+  background-size: calc(100% / 8) 1px;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.dark .hero-grid-bg {
+  background-color: rgb(0 0 0);
+}
+
+.dark .hero-grid-bg::before {
+  background-image: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0.06) 1px,
+    transparent 1px
+  );
+}
+
+/* Avoid overflow-x on html/body - it breaks position: sticky on the header.
+   Horizontal scroll is prevented by overflow-x-hidden on the content wrapper. */
+html {
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Uniform section containers */
+.section-breakout {
+  @apply -mx-4 overflow-x-hidden sm:-mx-6 lg:-mx-8;
+}
+
+.section-padding {
+  @apply py-12 md:py-20 lg:py-28;
+}
+
+.section-inner {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Page content - uniform spacing across projects, about, blog, contact */
+.page-content {
+  @apply py-20 md:py-28;
+}
+
+.page-heading {
+  @apply mb-12 text-4xl font-bold tracking-tight lowercase text-neutral-900 dark:text-white;
+}
+
+.page-intro {
+  @apply mb-10 text-neutral-600 dark:text-neutral-400 text-xl text-center;
+}
+
+@layer base {
+  * {
+    @apply border-neutral-200 dark:border-neutral-800;
+  }
+}
