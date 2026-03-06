@@ -12,18 +12,18 @@ export default function HomePage() {
   const displayProjects = projects.slice(0, 4);
 
   return (
-    <Container className="w-full hero-grid-bg">
+    <Container className="hero-grid-bg w-full">
       {/* Hero Section */}
       <section className="relative flex min-h-[50vh] flex-col justify-center py-12 md:min-h-[70vh] md:py-20 lg:py-28">
         <div className="relative">
           {/* Greeting + Availability row */}
-          <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center sm:mb-8 sm:gap-4">
+          <div className="mb-5 flex flex-col justify-between gap-3 sm:mb-8 sm:flex-row sm:items-center sm:gap-4">
             <p className="font-mono text-sm text-neutral-600 dark:text-neutral-400">
               Hey, I&apos;m Oluwafemi
             </p>
             <div className="flex items-center gap-2">
               <span
-                className="h-2 w-2 rounded-full bg-accent-green"
+                className="h-2 w-2 rounded-full bg-accent-green shadow-[0_0_6px_2px_rgba(34,197,94,0.8),0_0_12px_4px_rgba(34,197,94,0.4)] animate-glow-pulse"
                 aria-hidden
               />
               <span className="text-sm text-neutral-600 dark:text-neutral-400">

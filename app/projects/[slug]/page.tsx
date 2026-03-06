@@ -87,35 +87,29 @@ export default async function ProjectPage({
     <Container className="hero-grid-bg w-full">
       <div className="section-padding">
         {/* Hero Section */}
-        <header className="mb-10 md:mb-24">
-          <h1 className="mb-4 text-3xl font-bold lowercase tracking-tight text-neutral-900 dark:text-white md:text-4xl">
-            {project.title}
-          </h1>
-          <p className="mb-8 max-w-2xl text-base text-neutral-600 dark:text-neutral-300 md:mb-10 md:text-lg">
-            {project.description}
-          </p>
+        <h1 className="page-heading">{project.title}</h1>
+        <p className="page-intro">{project.description}</p>
 
-          {/* Hero Image - accent color fallback when no coverImage */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
-            {project.coverImage ? (
-              <Image
-                src={project.coverImage}
-                alt={`${project.title} showcase`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 896px"
-                priority
-              />
-            ) : (
-              <div
-                className={cn(
-                  'flex h-full w-full items-center justify-center bg-gradient-to-br',
-                  gradient
-                )}
-              ></div>
-            )}
-          </div>
-        </header>
+        {/* Hero Image - accent color fallback when no coverImage */}
+        <div className="relative mb-24 aspect-[4/3] w-full overflow-hidden">
+          {project.coverImage ? (
+            <Image
+              src={project.coverImage}
+              alt={`${project.title} showcase`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 896px"
+              priority
+            />
+          ) : (
+            <div
+              className={cn(
+                'flex h-full w-full items-center justify-center bg-gradient-to-br',
+                gradient
+              )}
+            ></div>
+          )}
+        </div>
 
         {/* Project Details - Two Columns */}
         <section className="mb-12 grid gap-8 dark:border-white/10 md:mb-20 md:grid-cols-[minmax(200px,280px)_1fr] md:gap-16">

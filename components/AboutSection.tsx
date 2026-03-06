@@ -4,8 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-const ABOUT_IMAGE =
-  'https://picsum.photos/seed/katana/400/533';
+const ABOUT_IMAGE = 'https://picsum.photos/seed/katana/400/533';
 
 const containerVariants = {
   hidden: {},
@@ -27,7 +26,7 @@ const fadeInVariants = {
 
 export function AboutSection() {
   return (
-    <section className="relative section-breakout section-padding bg-neutral-100 dark:bg-neutral-900">
+    <section className="section-breakout section-padding relative bg-neutral-100 dark:bg-neutral-900">
       <motion.div
         className="section-inner grid min-h-0 w-full items-center gap-8 md:min-h-[70vh] md:grid-cols-2 md:gap-16"
         variants={containerVariants}
@@ -35,17 +34,21 @@ export function AboutSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <motion.div className="flex flex-col gap-5 md:gap-8" variants={fadeInVariants}>
+        <motion.div className="flex flex-col gap-4" variants={fadeInVariants}>
           <div className="flex items-center gap-4">
-            <span className="text-sm font-mono lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
+            <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
               .about
             </span>
-            <span className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600" aria-hidden />
+            <span
+              className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600"
+              aria-hidden
+            />
           </div>
           <p className="max-w-xl text-lg leading-relaxed text-neutral-900 dark:text-white md:text-xl md:leading-loose">
-            my craft is building experiences that bring value to people and celebrate function over
-            form. let&apos;s hide the ego and give some freedom to creativity and make the first
-            small step changing the world to a better place.
+            my craft is building experiences that bring value to people and
+            celebrate function over form. let&apos;s hide the ego and give some
+            freedom to creativity and make the first small step changing the
+            world to a better place.
           </p>
         </motion.div>
 

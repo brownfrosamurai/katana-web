@@ -48,12 +48,15 @@ const experiences = [
 export function WorkExperienceSection() {
   return (
     <section className="section-breakout">
-      <div className="section-inner section-padding">
-        <div className="mb-8 flex items-center gap-4 md:mb-12">
-          <span className="text-sm font-mono lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
+      <div className="section-inner flex flex-col gap-8">
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
             .experience
           </span>
-          <span className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600" aria-hidden />
+          <span
+            className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600"
+            aria-hidden
+          />
         </div>
 
         <div className="grid grid-cols-1 gap-6 border-neutral-300 dark:border-white/10 sm:gap-8 md:grid-cols-3 md:gap-x-12 md:gap-y-16">
@@ -71,7 +74,9 @@ export function WorkExperienceSection() {
                 <span className="text-base font-bold text-neutral-900 dark:text-white md:text-lg lg:text-xl">
                   {company}
                 </span>
-                <span className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">{title}</span>
+                <span className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
+                  {title}
+                </span>
               </div>
 
               {/* Column 3: Description - right aligned */}

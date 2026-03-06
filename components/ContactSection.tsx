@@ -21,13 +21,16 @@ function ArrowIcon() {
 
 export function ContactSection() {
   return (
-    <section className="relative section-breakout section-padding bg-neutral-100 dark:bg-neutral-900">
-      <div className="section-inner">
-        <div className="flex items-center gap-4 mb-8 md:mb-12">
-          <span className="text-sm font-mono lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
+    <section className="section-breakout section-padding relative bg-neutral-100 dark:bg-neutral-900">
+      <div className="section-inner flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
             .say hello
           </span>
-          <span className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600" aria-hidden />
+          <span
+            className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600"
+            aria-hidden
+          />
         </div>
 
         <div className="flex flex-col gap-6 md:gap-8">
@@ -40,15 +43,15 @@ export function ContactSection() {
           </p>
 
           <div className="flex justify-center">
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 border border-neutral-900 px-6 py-3 text-sm font-medium lowercase text-neutral-900 transition-colors hover:bg-neutral-900 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
-          >
-            contact me
-            <span aria-hidden>
-              <ArrowIcon />
-            </span>
-          </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 border border-neutral-900 px-6 py-3 text-sm font-medium lowercase text-neutral-900 transition-colors hover:bg-neutral-900 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
+            >
+              contact me
+              <span aria-hidden>
+                <ArrowIcon />
+              </span>
+            </Link>
           </div>
         </div>
       </div>
