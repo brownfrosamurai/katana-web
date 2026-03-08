@@ -25,7 +25,13 @@ const cardVariants = {
   },
 };
 
-const ACCENT_PALETTE = ['orange', 'blue', 'grey', 'yellow', 'grey-alt'] as const;
+const ACCENT_PALETTE = [
+  'orange',
+  'blue',
+  'grey',
+  'yellow',
+  'grey-alt',
+] as const;
 type AccentKey = (typeof ACCENT_PALETTE)[number];
 
 const PLACEHOLDER_BG: Record<string, string> = {
@@ -115,12 +121,15 @@ export function ProjectSeeAlso({
 
   return (
     <section className="mt-12 md:mt-20">
-       <div className="mb-6 flex items-center gap-4 md:mb-8">
-          <span className="text-sm font-mono lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
-            .see also
-          </span>
-          <span className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600" aria-hidden />
-        </div>
+      <div className="mb-6 flex items-center gap-4 md:mb-8">
+        <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
+          .see also
+        </span>
+        <span
+          className="h-px max-w-full flex-1 bg-neutral-400 dark:bg-neutral-600"
+          aria-hidden
+        />
+      </div>
       <motion.ul
         className="flex flex-col gap-4"
         variants={containerVariants}
@@ -138,40 +147,13 @@ export function ProjectSeeAlso({
               <Link
                 href={otherProject.permalink}
                 className={cn(
-                  'group flex items-center gap-3 overflow-hidden border border-neutral-200 transition-opacity hover:opacity-90 sm:gap-4 dark:border-neutral-700/50',
+                  'group flex items-center gap-3 overflow-hidden border border-neutral-200 transition-opacity hover:opacity-90 dark:border-neutral-700/50 sm:gap-4',
                   styles.bg
                 )}
               >
                 {/* Thumbnail */}
                 <div className="relative h-16 w-20 shrink-0 overflow-hidden sm:h-20 sm:w-28 md:h-24 md:w-32">
-                  {otherProject.coverImage ? (
-                    'coverImageDark' in otherProject && otherProject.coverImageDark ? (
-                      <>
-                        <Image
-                          src={otherProject.coverImage}
-                          alt=""
-                          fill
-                          className="object-cover block dark:hidden"
-                          sizes="128px"
-                        />
-                        <Image
-                          src={otherProject.coverImageDark}
-                          alt=""
-                          fill
-                          className="object-cover hidden dark:block"
-                          sizes="128px"
-                        />
-                      </>
-                    ) : (
-                      <Image
-                        src={otherProject.coverImage}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="128px"
-                      />
-                    )
-                  ) : (
+                  {!otherProject.coverImage && (
                     <div
                       className={cn(
                         'h-full w-full',
@@ -179,6 +161,39 @@ export function ProjectSeeAlso({
                       )}
                     />
                   )}
+                  {otherProject.coverImage &&
+                    'coverImageDark' in otherProject &&
+                    otherProject.coverImageDark && (
+                      <>
+                        <Image
+                          src={otherProject.coverImage}
+                          alt=""
+                          fill
+                          className="block object-contain dark:hidden"
+                          sizes="128px"
+                        />
+                        <Image
+                          src={otherProject.coverImageDark}
+                          alt=""
+                          fill
+                          className="hidden object-contain dark:block"
+                          sizes="128px"
+                        />
+                      </>
+                    )}
+                  {otherProject.coverImage &&
+                    !(
+                      'coverImageDark' in otherProject &&
+                      otherProject.coverImageDark
+                    ) && (
+                      <Image
+                        src={otherProject.coverImage}
+                        alt=""
+                        fill
+                        className="object-contain"
+                        sizes="128px"
+                      />
+                    )}
                 </div>
 
                 {/* Category + Title */}
@@ -204,7 +219,7 @@ export function ProjectSeeAlso({
                 {/* Arrow icon */}
                 <div
                   className={cn(
-                    'shrink-0 pr-3 transition-transform duration-300 ease-in-out origin-center group-hover:-rotate-45 sm:pr-4',
+                    'shrink-0 origin-center pr-3 transition-transform duration-300 ease-in-out group-hover:-rotate-45 sm:pr-4',
                     styles.title
                   )}
                   aria-hidden
