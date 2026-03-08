@@ -72,6 +72,7 @@ export function ProjectCard({
           <div className="flex min-h-0 flex-1 flex-col justify-between gap-4">
             <ProjectCardCover
               coverImage={project.coverImage}
+              coverImageDark={'coverImageDark' in project ? project.coverImageDark : undefined}
               title={project.title}
               accentKey={accentKey}
               compact
@@ -152,6 +153,7 @@ export function ProjectCard({
 
           <ProjectCardCover
             coverImage={project.coverImage}
+            coverImageDark={'coverImageDark' in project ? project.coverImageDark : undefined}
             title={project.title}
             accentKey={accentKey}
             compact={false}

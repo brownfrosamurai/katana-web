@@ -33,6 +33,7 @@ const projects = defineCollection({
       date: s.isodate(),
       tags: s.array(s.string()).optional(),
       coverImage: s.string().optional(),
+      coverImageDark: s.string().optional(),
       accentColor: s.string().optional(),
       featured: s.boolean().optional(),
       repoUrl: s.string().optional(),

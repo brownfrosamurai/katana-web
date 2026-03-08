@@ -22,6 +22,7 @@ const PLACEHOLDER_BG: Record<string, string> = {
 
 interface ProjectCardCoverProps {
   coverImage?: string;
+  coverImageDark?: string;
   title: string;
   accentKey: string;
   /** Reduced height for sticky/compact state */
@@ -31,6 +32,7 @@ interface ProjectCardCoverProps {
 
 export function ProjectCardCover({
   coverImage,
+  coverImageDark,
   title,
   accentKey,
   compact = false,
@@ -53,6 +55,9 @@ export function ProjectCardCover({
     );
   }
 
+  const imageClass = 'object-contain object-top';
+  const sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px';
+
   return (
     <div
       className={cn(
@@ -63,13 +68,32 @@ export function ProjectCardCover({
       )}
     >
       <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src={coverImage}
-          alt={title}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
-        />
+        {coverImageDark ? (
+          <>
+            <Image
+              src={coverImage}
+              alt={title}
+              fill
+              className={cn(imageClass, 'block dark:hidden')}
+              sizes={sizes}
+            />
+            <Image
+              src={coverImageDark}
+              alt={title}
+              fill
+              className={cn(imageClass, 'hidden dark:block')}
+              sizes={sizes}
+            />
+          </>
+        ) : (
+          <Image
+            src={coverImage}
+            alt={title}
+            fill
+            className={imageClass}
+            sizes={sizes}
+          />
+        )}
       </div>
     </div>
   );

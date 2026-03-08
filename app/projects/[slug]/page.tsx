@@ -92,23 +92,47 @@ export default async function ProjectPage({
 
         {/* Hero Image - accent color fallback when no coverImage */}
         <div className="relative mb-24 aspect-[4/3] w-full overflow-hidden">
-          {project.coverImage ? (
-            <Image
-              src={project.coverImage}
-              alt={`${project.title} showcase`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 896px"
-              priority
-            />
-          ) : (
+          {!project.coverImage && (
             <div
               className={cn(
                 'flex h-full w-full items-center justify-center bg-gradient-to-br',
                 gradient
               )}
-            ></div>
+            />
           )}
+          {project.coverImage &&
+            'coverImageDark' in project &&
+            project.coverImageDark && (
+              <>
+                <Image
+                  src={project.coverImage}
+                  alt={`${project.title} showcase`}
+                  fill
+                  className="object-contain block dark:hidden"
+                  sizes="(max-width: 1024px) 100vw, 896px"
+                  priority
+                />
+                <Image
+                  src={project.coverImageDark}
+                  alt={`${project.title} showcase`}
+                  fill
+                  className="object-contain hidden dark:block"
+                  sizes="(max-width: 1024px) 100vw, 896px"
+                  priority
+                />
+              </>
+            )}
+          {project.coverImage &&
+            !('coverImageDark' in project && project.coverImageDark) && (
+              <Image
+                src={project.coverImage}
+                alt={`${project.title} showcase`}
+                fill
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 896px"
+                priority
+              />
+            )}
         </div>
 
         {/* Project Details - Two Columns */}

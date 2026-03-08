@@ -145,13 +145,32 @@ export function ProjectSeeAlso({
                 {/* Thumbnail */}
                 <div className="relative h-16 w-20 shrink-0 overflow-hidden sm:h-20 sm:w-28 md:h-24 md:w-32">
                   {otherProject.coverImage ? (
-                    <Image
-                      src={otherProject.coverImage}
-                      alt=""
-                      fill
-                      className="object-cover"
-                      sizes="128px"
-                    />
+                    'coverImageDark' in otherProject && otherProject.coverImageDark ? (
+                      <>
+                        <Image
+                          src={otherProject.coverImage}
+                          alt=""
+                          fill
+                          className="object-cover block dark:hidden"
+                          sizes="128px"
+                        />
+                        <Image
+                          src={otherProject.coverImageDark}
+                          alt=""
+                          fill
+                          className="object-cover hidden dark:block"
+                          sizes="128px"
+                        />
+                      </>
+                    ) : (
+                      <Image
+                        src={otherProject.coverImage}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="128px"
+                      />
+                    )
                   ) : (
                     <div
                       className={cn(
