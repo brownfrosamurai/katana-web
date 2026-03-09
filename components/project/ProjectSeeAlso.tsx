@@ -104,6 +104,59 @@ function ArrowIcon({ className }: Readonly<{ className?: string }>) {
   );
 }
 
+function ProjectThumbnail({
+  project,
+  accentKey,
+}: Readonly<{
+  project: Project;
+  accentKey: AccentKey;
+}>) {
+  const hasCoverImageDark =
+    'coverImageDark' in project && Boolean(project.coverImageDark);
+
+  if (!project.coverImage) {
+    return (
+      <div
+        className={cn(
+          'h-full w-full',
+          PLACEHOLDER_BG[accentKey] ?? PLACEHOLDER_BG.grey
+        )}
+      />
+    );
+  }
+
+  if (hasCoverImageDark) {
+    return (
+      <>
+        <Image
+          src={project.coverImage}
+          alt=""
+          fill
+          className="block object-contain dark:hidden"
+          sizes="128px"
+        />
+        <Image
+          src={project.coverImageDark!}
+          alt=""
+          fill
+          className="hidden object-contain dark:block"
+          sizes="128px"
+        />
+      </>
+    );
+  }
+
+  return (
+    <Image
+      src={project.coverImage}
+      alt=""
+      fill
+      className="object-contain"
+      sizes="128px"
+    />
+  );
+}
+
 interface ProjectSeeAlsoProps {
   projects: Project[];
   currentSlug: string;
@@ -153,47 +206,7 @@ export function ProjectSeeAlso({
               >
                 {/* Thumbnail */}
                 <div className="relative h-16 w-20 shrink-0 overflow-hidden sm:h-20 sm:w-28 md:h-24 md:w-32">
-                  {!otherProject.coverImage && (
-                    <div
-                      className={cn(
-                        'h-full w-full',
-                        PLACEHOLDER_BG[accentKey] ?? PLACEHOLDER_BG.grey
-                      )}
-                    />
-                  )}
-                  {otherProject.coverImage &&
-                    'coverImageDark' in otherProject &&
-                    otherProject.coverImageDark && (
-                      <>
-                        <Image
-                          src={otherProject.coverImage}
-                          alt=""
-                          fill
-                          className="block object-contain dark:hidden"
-                          sizes="128px"
-                        />
-                        <Image
-                          src={otherProject.coverImageDark}
-                          alt=""
-                          fill
-                          className="hidden object-contain dark:block"
-                          sizes="128px"
-                        />
-                      </>
-                    )}
-                  {otherProject.coverImage &&
-                    !(
-                      'coverImageDark' in otherProject &&
-                      otherProject.coverImageDark
-                    ) && (
-                      <Image
-                        src={otherProject.coverImage}
-                        alt=""
-                        fill
-                        className="object-contain"
-                        sizes="128px"
-                      />
-                    )}
+                  <ProjectThumbnail project={otherProject} accentKey={accentKey} />
                 </div>
 
                 {/* Category + Title */}
