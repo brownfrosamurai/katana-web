@@ -18,13 +18,23 @@ const ACCENT_PANEL: Record<string, string> = {
   'grey-alt': 'bg-violet-600',
 };
 
-const ACCENT_PALETTE = ['orange', 'blue', 'grey', 'yellow', 'grey-alt'] as const;
+const ACCENT_PALETTE = [
+  'orange',
+  'blue',
+  'grey',
+  'yellow',
+  'grey-alt',
+] as const;
 type AccentKey = (typeof ACCENT_PALETTE)[number];
 
 function getAccentKey(project: Project, index: number): AccentKey {
-  const projectAccent = 'accentColor' in project ? (project.accentColor as string) : undefined;
-  const isValid = projectAccent && ACCENT_PALETTE.includes(projectAccent as AccentKey);
-  return isValid ? (projectAccent as AccentKey) : ACCENT_PALETTE[index % ACCENT_PALETTE.length];
+  const projectAccent =
+    'accentColor' in project ? (project.accentColor as string) : undefined;
+  const isValid =
+    projectAccent && ACCENT_PALETTE.includes(projectAccent as AccentKey);
+  return isValid
+    ? (projectAccent as AccentKey)
+    : ACCENT_PALETTE[index % ACCENT_PALETTE.length];
 }
 
 export interface ProjectsScrollRevealProps {
@@ -32,7 +42,10 @@ export interface ProjectsScrollRevealProps {
   className?: string;
 }
 
-export function ProjectsScrollReveal({ projects, className }: Readonly<ProjectsScrollRevealProps>) {
+export function ProjectsScrollReveal({
+  projects,
+  className,
+}: Readonly<ProjectsScrollRevealProps>) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLUListElement>(null);
 
@@ -42,10 +55,13 @@ export function ProjectsScrollReveal({ projects, className }: Readonly<ProjectsS
       const cards = cardsRef.current;
       if (!section || !cards || projects.length === 0) return;
 
-      const cardElements = cards.querySelectorAll<HTMLElement>('.project-card-panel');
+      const cardElements = cards.querySelectorAll<HTMLElement>(
+        '.project-card-panel'
+      );
       if (cardElements.length === 0) return;
 
-      const vh = globalThis.window === undefined ? 800 : globalThis.window.innerHeight;
+      const vh =
+        globalThis.window === undefined ? 800 : globalThis.window.innerHeight;
       const scrollDistance = vh * Math.max(2.5, projects.length * 2);
 
       const tl = gsap.timeline({
@@ -101,10 +117,13 @@ export function ProjectsScrollReveal({ projects, className }: Readonly<ProjectsS
   if (projects.length === 0) return null;
 
   return (
-    <section ref={sectionRef} className={cn('relative overflow-x-hidden', className)}>
+    <section
+      ref={sectionRef}
+      className={cn('relative overflow-x-hidden', className)}
+    >
       <ul
         ref={cardsRef}
-        className="list-none p-0 m-0 w-full max-w-7xl mx-auto grid"
+        className="m-0 mx-auto grid w-full max-w-7xl list-none p-0"
         style={{
           gridTemplateAreas: '"stack"',
           gridTemplateColumns: '1fr',
@@ -114,11 +133,13 @@ export function ProjectsScrollReveal({ projects, className }: Readonly<ProjectsS
         {projects.map((project, index) => {
           const accentKey = getAccentKey(project, index);
           const panelClass = ACCENT_PANEL[accentKey] ?? ACCENT_PANEL.grey;
+          project.coverImage = undefined;
+          project.coverImageDark = undefined;
           return (
             <li
               key={project.slug}
               className={cn(
-                'project-card-panel relative h-[70svh] min-h-0 p-6 sm:p-8 overflow-hidden rounded-xl',
+                'project-card-panel relative h-[70svh] min-h-0 overflow-hidden rounded-xl p-6 sm:p-8',
                 'flex flex-col justify-between',
                 panelClass
               )}
@@ -128,9 +149,12 @@ export function ProjectsScrollReveal({ projects, className }: Readonly<ProjectsS
                 zIndex: index,
               }}
             >
-              <div className="absolute inset-0 opacity-20 pointer-events-none" aria-hidden>
+              <div
+                className="pointer-events-none absolute inset-0 opacity-20"
+                aria-hidden
+              >
                 <div
-                  className="absolute -top-1/2 -right-1/2 w-full h-full rounded-full blur-3xl bg-white/30"
+                  className="absolute -right-1/2 -top-1/2 h-full w-full rounded-full bg-white/30 blur-3xl"
                   style={{ transform: 'scale(1.5)' }}
                 />
               </div>

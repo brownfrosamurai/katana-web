@@ -15,7 +15,7 @@ export default function ContactPage() {
         <p className="page-intro">
           Have a question or want to work together? Send me a message.
         </p>
-        <section className="section-breakout section-padding relative bg-neutral-100 dark:bg-neutral-900">
+        <section className="section-breakout relative bg-neutral-100 py-10 dark:bg-neutral-900">
           <div className="section-inner flex flex-col gap-8">
             <div className="flex items-center gap-4">
               <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">

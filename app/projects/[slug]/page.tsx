@@ -91,7 +91,7 @@ export default async function ProjectPage({
         <p className="page-intro">{project.description}</p>
 
         {/* Hero Image - accent color fallback when no coverImage */}
-        <div className="relative mb-24 aspect-[4/3] w-full overflow-hidden">
+        <div className="relative mb-6 aspect-[4/3] w-full overflow-hidden">
           {!project.coverImage && (
             <div
               className={cn(
@@ -108,7 +108,7 @@ export default async function ProjectPage({
                   src={project.coverImage}
                   alt={`${project.title} showcase`}
                   fill
-                  className="object-contain block dark:hidden"
+                  className="block object-contain dark:hidden"
                   sizes="(max-width: 1024px) 100vw, 896px"
                   priority
                 />
@@ -116,7 +116,7 @@ export default async function ProjectPage({
                   src={project.coverImageDark}
                   alt={`${project.title} showcase`}
                   fill
-                  className="object-contain hidden dark:block"
+                  className="hidden object-contain dark:block"
                   sizes="(max-width: 1024px) 100vw, 896px"
                   priority
                 />

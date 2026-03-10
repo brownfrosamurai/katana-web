@@ -95,10 +95,14 @@ body {
 @keyframes glow-pulse {
   0%,
   100% {
-    box-shadow: 0 0 6px 2px rgba(34, 197, 94, 0.8), 0 0 12px 4px rgba(34, 197, 94, 0.4);
+    box-shadow:
+      0 0 6px 2px rgba(34, 197, 94, 0.8),
+      0 0 12px 4px rgba(34, 197, 94, 0.4);
   }
   50% {
-    box-shadow: 0 0 8px 3px rgba(34, 197, 94, 1), 0 0 16px 6px rgba(34, 197, 94, 0.6);
+    box-shadow:
+      0 0 8px 3px rgba(34, 197, 94, 1),
+      0 0 16px 6px rgba(34, 197, 94, 0.6);
   }
 }
 
@@ -112,11 +116,11 @@ body {
 }
 
 .page-heading {
-  @apply mb-12 text-4xl font-bold tracking-tight lowercase text-neutral-900 dark:text-white;
+  @apply mb-12 text-4xl font-bold lowercase tracking-tight text-neutral-900 dark:text-white;
 }
 
 .page-intro {
-  @apply mb-10 text-neutral-600 dark:text-neutral-400 text-xl text-center;
+  @apply mb-10 text-center text-xl lowercase text-neutral-600 dark:text-neutral-400;
 }
 
 @layer base {
