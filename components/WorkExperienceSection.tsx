@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 const experiences = [
   {
-    period: 'April 2025 – January 2026',
+    period: 'April 2025 – Present',
     company: 'Scorched Ice Inc',
     title: 'Full Stack Developer',
     description:
@@ -47,7 +47,7 @@ const experiences = [
 
 export function WorkExperienceSection() {
   return (
-    <section className="section-breakout">
+    <section className="section-breakout pb-12 md:pb-20 lg:pb-28">
       <div className="section-inner flex flex-col gap-8">
         <div className="flex items-center gap-4">
           <span className="font-mono text-sm lowercase tracking-wide text-neutral-600 dark:text-neutral-400">
