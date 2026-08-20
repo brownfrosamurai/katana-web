@@ -1,4 +1,5 @@
 import { Container } from '@/components/ui/Container';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export const metadata = {
   title: 'Uses',
@@ -17,7 +18,7 @@ const categories = [
   },
   {
     title: 'Design',
-    items: ['Figma', 'Tailwind CSS', 'Lucide Icons'],
+    items: ['Figma', 'Tailwind CSS', 'Phosphor Icons'],
   },
   {
     title: 'Productivity',
@@ -27,21 +28,19 @@ const categories = [
 
 export default function UsesPage() {
   return (
-    <Container>
-      <div className="py-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Uses
-        </h1>
-        <p className="mb-12 text-neutral-600 dark:text-neutral-400">
-          A list of tools, software, and hardware I use for development and productivity.
-        </p>
-        <div className="space-y-8">
+    <Container className="hero-grid-bg w-full">
+      <div className="section-padding">
+        <PageHeader
+          title="uses"
+          intro="Tools, software, and hardware I use for development and productivity."
+        />
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {categories.map((category) => (
             <section key={category.title}>
-              <h2 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+              <h2 className="mb-4 text-lg font-semibold lowercase text-foreground">
                 {category.title}
               </h2>
-              <ul className="list-inside list-disc space-y-2 text-neutral-600 dark:text-neutral-400">
+              <ul className="space-y-2 text-muted">
                 {category.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

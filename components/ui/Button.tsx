@@ -3,23 +3,21 @@ import { cn } from '@/lib/utils';
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
 
 const buttonVariants = {
-  base: 'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-black',
+  base: 'inline-flex items-center justify-center gap-2 rounded-none font-medium lowercase transition-colors active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50',
   variant: {
     primary:
-      'bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200',
-    accent:
-      'bg-accent-green text-white hover:bg-green-600 dark:bg-accent-green dark:text-white dark:hover:bg-green-600',
+      'bg-accent text-background hover:bg-accent-hover',
     secondary:
-      'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700',
+      'bg-muted-bg text-foreground hover:bg-line',
     ghost:
-      'text-neutral-900 hover:bg-neutral-100 dark:text-white/90 dark:hover:bg-neutral-800 dark:hover:text-white',
+      'text-foreground hover:bg-muted-bg',
     outline:
-      'border border-neutral-300 bg-transparent hover:bg-neutral-100 dark:border-white/30 dark:bg-transparent dark:text-white dark:hover:bg-white/10',
+      'border border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background',
   },
   size: {
-    sm: 'h-8 px-3 text-sm',
-    md: 'h-10 px-4 text-base',
-    lg: 'h-12 px-6 text-lg',
+    sm: 'h-8 px-3 text-xs',
+    md: 'h-10 px-4 text-sm',
+    lg: 'h-12 px-6 text-sm',
   },
 } as const;
 
@@ -55,17 +53,31 @@ interface ButtonLinkProps {
   children: React.ReactNode;
 }
 
-function ButtonLink({ href, variant = 'primary', size = 'md', className, children }: Readonly<ButtonLinkProps>) {
+function ButtonLink({
+  href,
+  variant = 'primary',
+  size = 'md',
+  className,
+  children,
+}: Readonly<ButtonLinkProps>) {
+  const classes = cn(
+    buttonVariants.base,
+    buttonVariants.variant[variant],
+    buttonVariants.size[size],
+    className
+  );
+  const isExternal = href.startsWith('http://') || href.startsWith('https://');
+
+  if (isExternal) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      className={cn(
-        buttonVariants.base,
-        buttonVariants.variant[variant],
-        buttonVariants.size[size],
-        className
-      )}
-    >
+    <Link href={href} className={classes}>
       {children}
     </Link>
   );

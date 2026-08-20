@@ -16,14 +16,14 @@ export default function ErrorBoundary({ error, reset }: Readonly<ErrorBoundaryPr
 
   return (
     <Container>
-      <div className="flex min-h-[60vh] flex-col items-center justify-center py-16 text-center">
-        <h1 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-          Something went wrong
+      <div className="flex min-h-[60vh] flex-col items-start justify-center py-16">
+        <h1 className="mb-2 text-2xl font-bold text-foreground">
+          something went wrong
         </h1>
-        <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+        <p className="mb-8 text-muted">
           An unexpected error occurred. Please try again.
         </p>
-        <Button onClick={() => reset()}>Try again</Button>
+        <Button onClick={() => reset()}>try again</Button>
       </div>
     </Container>
   );

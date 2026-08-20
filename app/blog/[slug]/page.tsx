@@ -2,10 +2,13 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { blog } from '@/lib/velite';
 import { Container } from '@/components/ui/Container';
-import Link from 'next/link';
-import type { Metadata } from 'next';
-import { ContactSection } from '@/components/ContactSection';
+import { Prose } from '@/components/ui/Prose';
+import { ButtonLink } from '@/components/ui/Button';
+import { MdxRenderer } from '@/components/mdx/MdxRenderer';
+import { BlogSeeAlso } from '@/components/blog/BlogSeeAlso';
 import { getCoverImage } from '@/lib/blog-images';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -42,28 +45,28 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const coverImage = getCoverImage(post.coverImage);
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 
   return (
     <div className="hero-grid-bg">
-      <Container className="py-16 md:py-24">
-        <article className="flex flex-col gap-12 lg:flex-row lg:gap-16">
-          {/* Main content column */}
-          <div className="min-w-0 flex-1">
-            <Link
-              href="/blog"
-              className="mb-8 inline-block text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
-            >
-              ← Back to notes
-            </Link>
+      <Container className="section-padding">
+        <ButtonLink href="/blog" variant="ghost" size="sm" className="mb-8 px-0">
+          back to notes
+        </ButtonLink>
 
-            <h1 className="page-heading mb-8 font-bold tracking-tight text-neutral-900 dark:text-white">
-              {post.title}
-            </h1>
+        <article className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="min-w-0 lg:col-span-8">
+            <h1 className="page-heading mb-4">{post.title}</h1>
+            <p className="mb-8 text-sm text-muted">{formattedDate}</p>
 
-            <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+            <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden bg-muted-bg">
               <Image
                 src={coverImage}
-                alt=""
+                alt={post.title}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1280px) 100vw, 896px"
@@ -71,15 +74,26 @@ export default async function BlogPostPage({
               />
             </div>
 
-            <p className="mb-10 text-xl leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <p className="mb-10 max-w-[65ch] text-xl leading-relaxed text-muted">
               {post.description}
             </p>
 
-            <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:text-neutral-900 prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-lg prose-p:leading-relaxed prose-p:text-neutral-600 prose-img:w-full prose-img:max-w-none dark:prose-headings:text-white dark:prose-p:text-neutral-300">
-              {/* <MdxRenderer code={post.code} /> */}
-            </div>
+            {post.code ? (
+              <Prose>
+                <MdxRenderer code={post.code} />
+              </Prose>
+            ) : null}
 
-            <ContactSection />
+            <div className="mt-12">
+              <ButtonLink href="/contact" variant="outline">
+                say hello
+                <ArrowUpRight size={16} weight="regular" aria-hidden />
+              </ButtonLink>
+            </div>
+          </div>
+
+          <div className="lg:col-span-3 lg:col-start-10">
+            <BlogSeeAlso posts={blog} currentSlug={post.slug} />
           </div>
         </article>
       </Container>

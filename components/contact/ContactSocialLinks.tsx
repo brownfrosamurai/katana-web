@@ -32,14 +32,14 @@ export function ContactSocialLinks() {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4 border border-neutral-200 bg-white px-4 py-3 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/80 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/80"
+            className="flex items-center gap-4 border border-line bg-background px-4 py-3 transition-colors hover:border-foreground"
           >
-            <Icon className="h-6 w-6 shrink-0 text-neutral-900 dark:text-white" />
+            <Icon className="h-6 w-6 shrink-0 text-foreground" />
             <div className="flex flex-col">
-              <span className="text-sm font-medium lowercase text-neutral-900 dark:text-white">
+              <span className="text-sm font-medium lowercase text-foreground">
                 {label}
               </span>
-              <span className="text-xs text-neutral-500 dark:text-neutral-400">{handle}</span>
+              <span className="text-xs text-muted">{handle}</span>
             </div>
           </Link>
         </li>

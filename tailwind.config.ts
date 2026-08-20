@@ -15,18 +15,23 @@ const config: Config = {
       },
       borderRadius: {
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        md: 'var(--radius)',
+        sm: 'var(--radius)',
       },
       colors: {
-        accent: {
-          orange: 'var(--accent-orange)',
-          blue: 'var(--accent-blue)',
-          yellow: 'var(--accent-yellow)',
-          grey: 'var(--accent-grey)',
-          'grey-alt': 'var(--accent-grey-alt)',
-          green: 'var(--accent-green)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        muted: {
+          DEFAULT: 'var(--muted)',
+          bg: 'var(--muted-bg)',
         },
+        line: 'var(--line)',
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+        },
+        status: 'var(--status)',
+        overlay: 'var(--overlay)',
       },
     },
   },

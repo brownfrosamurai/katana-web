@@ -11,10 +11,8 @@ export function Card({ children, className, variant = 'default' }: Readonly<Card
   return (
     <div
       className={cn(
-        variant === 'default' &&
-          'border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900',
-        variant === 'minimal' &&
-          'border border-neutral-200 dark:border-neutral-800 dark:bg-transparent',
+        variant === 'default' && 'border border-line bg-background',
+        variant === 'minimal' && 'border border-line bg-transparent',
         className
       )}
     >
@@ -29,7 +27,7 @@ interface CardHeaderProps {
 }
 
 export function CardHeader({ children, className }: Readonly<CardHeaderProps>) {
-  return <div className={cn('border-b border-neutral-200 p-4 dark:border-neutral-800', className)}>{children}</div>;
+  return <div className={cn('border-b border-line p-4', className)}>{children}</div>;
 }
 
 interface CardContentProps {
