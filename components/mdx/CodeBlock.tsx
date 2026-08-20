@@ -23,7 +23,7 @@ export function CodeBlock({ children, className, ...props }: Readonly<CodeBlockP
       <pre
         ref={preRef}
         className={cn(
-          'overflow-x-auto border border-neutral-200 bg-neutral-50 p-4 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+          'overflow-x-auto border border-line bg-muted-bg p-4 text-sm',
           className
         )}
         {...props}
@@ -33,7 +33,7 @@ export function CodeBlock({ children, className, ...props }: Readonly<CodeBlockP
       <button
         type="button"
         onClick={handleCopy}
-        className="absolute right-2 top-2 px-2 py-1 text-xs opacity-0 transition-opacity focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 group-hover:opacity-100"
+        className="absolute right-2 top-2 px-2 py-1 text-xs text-muted opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-accent group-hover:opacity-100"
         aria-label="Copy code"
       >
         {copied ? 'Copied!' : 'Copy'}

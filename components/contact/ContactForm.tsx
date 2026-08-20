@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/Button';
 
 const inputBase =
-  'w-full rounded-none border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-0 disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-white dark:placeholder-neutral-500 dark:focus:border-neutral-500';
+  'w-full rounded-none border border-line bg-background px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50';
 
 type ComposeState = {
   to: string;
@@ -45,8 +45,14 @@ export function ContactForm() {
 
   function openOtherService() {
     if (!lastCompose) return;
-    const other: EmailService = lastCompose.service === 'gmail' ? 'outlook' : 'gmail';
-    const url = getComposeUrl(other, lastCompose.to, lastCompose.subject, lastCompose.body);
+    const other: EmailService =
+      lastCompose.service === 'gmail' ? 'outlook' : 'gmail';
+    const url = getComposeUrl(
+      other,
+      lastCompose.to,
+      lastCompose.subject,
+      lastCompose.body
+    );
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
@@ -57,11 +63,8 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} onReset={handleReset} className="space-y-6">
-      <div className="grid grid-cols-[minmax(0,80px)_1fr] gap-4 sm:grid-cols-[minmax(0,100px)_1fr]">
-        <label
-          htmlFor="name"
-          className="py-2 text-sm text-neutral-500 dark:text-neutral-500"
-        >
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className="text-sm text-foreground">
           Name
         </label>
         <input
@@ -71,15 +74,11 @@ export function ContactForm() {
           required
           minLength={2}
           disabled={status === 'success'}
-          placeholder=""
           className={inputBase}
         />
       </div>
-      <div className="grid grid-cols-[minmax(0,80px)_1fr] gap-4 sm:grid-cols-[minmax(0,100px)_1fr]">
-        <label
-          htmlFor="email"
-          className="py-2 text-sm text-neutral-500 dark:text-neutral-500"
-        >
+      <div className="flex flex-col gap-2">
+        <label htmlFor="email" className="text-sm text-foreground">
           Email
         </label>
         <input
@@ -88,15 +87,11 @@ export function ContactForm() {
           type="email"
           required
           disabled={status === 'success'}
-          placeholder=""
           className={inputBase}
         />
       </div>
-      <div className="grid grid-cols-[minmax(0,80px)_1fr] gap-4 sm:grid-cols-[minmax(0,100px)_1fr]">
-        <label
-          htmlFor="message"
-          className="py-2 text-sm text-neutral-500 dark:text-neutral-500"
-        >
+      <div className="flex flex-col gap-2">
+        <label htmlFor="message" className="text-sm text-foreground">
           Message
         </label>
         <textarea
@@ -106,7 +101,6 @@ export function ContactForm() {
           minLength={10}
           rows={6}
           disabled={status === 'success'}
-          placeholder=""
           className={inputBase + ' min-h-[120px] resize-y'}
         />
       </div>
@@ -123,7 +117,7 @@ export function ContactForm() {
 
       {status === 'success' && lastCompose ? (
         <div className="space-y-3">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          <p className="text-sm text-muted">
             {lastCompose.service === 'outlook'
               ? 'Opened Outlook. Send the message when ready.'
               : 'Opened Gmail. Send the message when ready.'}
@@ -131,30 +125,20 @@ export function ContactForm() {
           <button
             type="button"
             onClick={openOtherService}
-            className="text-sm text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300"
+            className="text-sm text-muted underline hover:text-foreground"
           >
             Use {lastCompose.service === 'gmail' ? 'Outlook' : 'Gmail'} instead
           </button>
           <div className="pt-2">
-            <Button
-              type="reset"
-              variant="outline"
-              size="lg"
-              className="bg-inherit"
-            >
-              Send another message
+            <Button type="reset" variant="outline" size="lg">
+              send another
             </Button>
           </div>
         </div>
       ) : (
         <div className="pt-2">
-          <Button
-            type="submit"
-            variant="outline"
-            size="lg"
-            className="w-full bg-inherit sm:w-auto sm:min-w-[160px]"
-          >
-            Submit
+          <Button type="submit" variant="primary" size="lg">
+            say hello
           </Button>
         </div>
       )}

@@ -4,10 +4,12 @@ import './globals.css';
 import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { SkipLink } from '@/components/ui/SkipLink';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -37,12 +39,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>
+      <body className={`${jetbrainsMono.variable} bg-background font-mono text-foreground antialiased`}>
         <Providers>
-          <div className="flex min-h-screen min-w-0 flex-col">
+          <SkipLink />
+          <div className="flex min-h-[100dvh] min-w-0 flex-col">
             <Header />
             <div className="min-w-0 flex-1 overflow-x-clip pt-20">
-              <main className="min-w-0 flex-1">{children}</main>
+              <main id="main-content" className="min-w-0 flex-1" tabIndex={-1}>
+                {children}
+              </main>
               <Footer />
             </div>
           </div>

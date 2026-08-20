@@ -1,7 +1,7 @@
 import { blog } from '@/lib/velite';
 import { Container } from '@/components/ui/Container';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { NotesList } from '@/components/NotesList';
-import { ContactSection } from '@/components/ContactSection';
 
 export const metadata = {
   title: 'Blog',
@@ -14,16 +14,14 @@ export default function BlogPage() {
   );
 
   return (
-    <Container className="w-full hero-grid-bg">
+    <Container className="hero-grid-bg w-full">
       <div className="section-padding flex flex-col">
-        <h1 className="page-heading">notes</h1>
-        <p className="page-intro">
-          Thoughts on development, technology, and whatever catches my interest.
-        </p>
-
+        <PageHeader
+          title="notes"
+          intro="Thoughts on development, technology, and whatever catches my interest."
+        />
         <NotesList posts={sortedPosts} />
       </div>
-      <ContactSection />
     </Container>
   );
 }

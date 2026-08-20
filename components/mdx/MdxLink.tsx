@@ -8,8 +8,7 @@ interface MdxLinkProps {
 
 export function MdxLink({ href, children, className }: Readonly<MdxLinkProps>) {
   const isExternal = href.startsWith('http://') || href.startsWith('https://');
-  const linkClass =
-    'text-neutral-600 underline hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100';
+  const linkClass = 'text-accent underline-offset-4 hover:underline';
 
   if (isExternal) {
     return (

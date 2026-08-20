@@ -10,16 +10,16 @@ export function SkeletonCard({ className, hasImage = true }: Readonly<SkeletonCa
   return (
     <Card className={cn('h-full overflow-hidden', className)}>
       {hasImage && (
-        <div className="aspect-video w-full animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+        <div className="aspect-video w-full animate-pulse bg-muted-bg" />
       )}
       <CardContent className="p-4">
-        <div className="mb-2 h-4 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+        <div className="mb-2 h-4 w-3/4 animate-pulse bg-muted-bg" />
         <div className="mb-3 flex gap-1">
-          <div className="h-3 w-16 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-          <div className="h-3 w-20 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+          <div className="h-3 w-16 animate-pulse bg-muted-bg" />
+          <div className="h-3 w-20 animate-pulse bg-muted-bg" />
         </div>
-        <div className="h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-        <div className="mt-3 h-3 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+        <div className="h-3 w-full animate-pulse bg-muted-bg" />
+        <div className="mt-3 h-3 w-24 animate-pulse bg-muted-bg" />
       </CardContent>
     </Card>
   );
