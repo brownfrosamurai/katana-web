@@ -1,0 +1,74 @@
+---
+title: Fraud Radar
+description: Real-time fraud-scoring system modeled on Stripe Radar — transactions stream through Kafka, get scored by an anomaly-detection model, and pass through a rules-composition decision engine onto a live dashboard.
+overview: Fraud Radar scores streaming transactions for fraud risk in real time and visualizes the results on a live dashboard, modeled on how Stripe Radar actually works — a model score composed with a bounded rules layer into a decision, not just a raw anomaly threshold. Built solo, end to end, as a portfolio piece to prove a model can be taken out of a notebook and turned into a system.
+approach: Six Docker Compose services stream, score, and store transactions in real time — Redpanda for streaming, Postgres for storage, a producer replaying holdout transactions, a consumer that scores and persists them, a FastAPI backend, and a React/TypeScript dashboard with a live burst-demo control and click-to-explain on flagged transactions.
+coverImage: /fraud-radar-cover.gif
+date: 2026-08-21
+slug: fraud-radar
+tags:
+  - Personal Project
+  - Machine Learning
+featured: true
+repoUrl: https://github.com/brownfrosamurai/fraud-radar
+role: Full-stack Development, ML Engineering
+deliverables:
+  - Real-time streaming pipeline
+  - Fraud-scoring API
+  - Live dashboard
+  - Model evaluation & explainability
+tools:
+  - Python
+  - FastAPI
+  - Redpanda
+  - PostgreSQL
+  - React
+  - TypeScript
+  - scikit-learn
+  - PyTorch
+  - Docker Compose
+---
+
+# Overview
+
+Fraud Radar scores streaming transactions for fraud risk in real time and visualizes the results on a live dashboard, modeled on how Stripe Radar actually works: a model score composed with a bounded rules layer into a decision, not just a raw anomaly threshold. Built solo, end to end, as a portfolio piece to prove a model can be taken out of a notebook and turned into a system.
+
+![Fraud Radar demo](/fraud-radar-cover.gif)
+
+## Architecture
+
+Six Docker Compose services:
+
+- **redpanda** — Kafka-API broker
+- **postgres** — `scored_transactions` store
+- **producer** — replays holdout transactions at 10 tx/sec; exposes an internal `POST /burst` (port 8001, not published to the host)
+- **consumer** — its own process, not embedded in FastAPI (the Kafka client isn't async and would block the event loop); scores each transaction, composes `decide(score, amount)`, and batches Postgres writes (flush every 10 rows or 100ms) to keep burst-time writes fast
+- **api** (`:8000`) — FastAPI: `POST /score`, `POST /demo/burst`, `GET /health`, `/transactions`, `/stats`, `/transactions/{id}/explanation`, WebSocket `/stream`
+- **dashboard** (`:3000`) — React + TypeScript, live feed, charts, alert table, burst button
+
+Nginx blocks `/api/internal/*` from being reachable outside the Compose network. The WebSocket only pushes a transaction after its batch write commits, closing a read-after-write race against the explain endpoint.
+
+## Decision engine & explainability
+
+Rather than exposing a raw model score, `decide(score, amount)` composes it with a bounded ruleset into **BLOCK / REVIEW / ALLOW** — the same "ML plus policy" shape real fraud systems use. Clicking a REVIEW or BLOCK row computes on-demand permutation-importance (top 5 features) for the Isolation Forest model — lazily, only for the transaction clicked, not eagerly for 100% of traffic. ALLOW rows aren't clickable.
+
+## Models & evaluation
+
+Trained on the Kaggle Credit Card Fraud dataset (284,807 transactions, 492 fraud, ~0.17% prevalence), time-ordered 80/20 split, with models trained on non-fraud transactions in the train split and evaluated against the untouched holdout.
+
+Because of the severe class imbalance, results are reported as PR-AUC / precision / recall / F1 at `model_score >= 0.9`, not accuracy:
+
+| Model | PR-AUC | Precision@0.9 | Recall@0.9 | F1@0.9 |
+| --- | --- | --- | --- | --- |
+| Isolation Forest | 0.0297 | 0.0122 | 0.9067 | 0.0240 |
+| Autoencoder | 0.0781 | 0.0088 | 0.8533 | 0.0175 |
+
+Isolation Forest is the live stream scorer and the default on `POST /score`. `?model=autoencoder` returns 501 in the Docker image (weights are present, torch isn't) — documented in Future Work, not hidden.
+
+## Demo control
+
+A dashboard button calls `POST /demo/burst` on the API, which forwards to the producer: 50 holdout fraud rows replayed over 2 seconds, followed by a server-enforced 30-second cooldown. The dashboard never calls the producer directly.
+
+## Testing & docs
+
+`pytest -v` for the API, `npm test` for the dashboard. The README ships with a Mermaid architecture diagram, a recorded demo GIF, the metrics table above, a precision-recall curve image, and a Future Work section that names what was deliberately left out — SHAP, ensembling, a hosted live demo, a UI model toggle — rather than leaving it unaddressed.

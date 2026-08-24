@@ -1,40 +1,49 @@
 ---
 title: Spend Lens
-description: Bank statement analyzer that helps users understand and track their spending patterns.
-overview: Spend Lens is a bank statement analyzer that helps users make sense of their financial data. Upload statements, and the app parses and visualizes spending patterns to support better money decisions.
-approach: Built to simplify personal finance tracking. Parse bank statements, group transactions, and surface insights so users can see where their money goes.
+description: AI-powered personal finance platform for Nigerian bank statements — parses transactions across major banks, categorizes spending automatically, and answers financial questions through a conversational assistant.
+overview: Spend Lens turns raw Nigerian bank statements into structured, queryable financial data. Upload a PDF from GTBank, Zenith, Access, Sterling, OPay, or FirstBank, and it parses transactions, categorizes spending automatically, and surfaces insights — plus a conversational AI assistant that can answer questions about your money and Nigerian tax obligations.
+approach: A FastAPI backend parses statements, runs an LLM-scored categorization-rules engine, and orchestrates an OpenAI-backed agent with tool access to the user's own transaction data. A Next.js 15 / TypeScript frontend renders dashboards, budgets, receipts, and chat. Supabase provides Postgres, auth, and storage; Mono handles open-banking account linking. Every request is scoped to a user through a dedicated service-manager layer, so domain services never touch the database directly.
 coverImage: /spend-lens-cover.png
-accentColor: green
 date: 2025-01-15
 slug: spend-lens
 tags:
   - Personal Project
-  - Finance
+  - Fintech
 featured: true
 repoUrl: https://github.com/Temitoyin/SpendLens
 liveUrl: https://spend-lens-honk.vercel.app/
-role: Full-stack Development
+role: Full-stack Development, AI Integration
 deliverables:
   - Web application
-  - Bank statement parsing
-  - Spending analytics
+  - Multi-bank statement parsing
+  - AI chat assistant
+  - Budgeting & receipt tracking
+  - Categorization rules engine
 tools:
   - Next.js
   - TypeScript
+  - Python
+  - FastAPI
+  - Supabase
+  - PostgreSQL
+  - OpenAI
 ---
 
 # Overview
 
-Spend Lens is a bank statement analyzer that helps users make sense of their financial data. Upload statements, and the app parses and visualizes spending patterns to support better money decisions.
+Spend Lens turns raw Nigerian bank statements into structured, queryable financial data. Upload a PDF from GTBank, Zenith, Access, Sterling, OPay, or FirstBank, and it parses transactions, categorizes spending automatically, and surfaces insights — plus a conversational AI assistant that can answer questions about your money and Nigerian tax obligations.
 
-![Spend Lens](https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80)
+![Spend Lens](/spend-lens-cover.png)
 
 ## Approach
 
-Built to simplify personal finance tracking. Parse bank statements, group transactions, and surface insights so users can see where their money goes.
+A FastAPI backend parses statements, runs an LLM-scored categorization-rules engine, and orchestrates an OpenAI-backed agent with tool access to the user's own transaction data. A Next.js 15 / TypeScript frontend renders dashboards, budgets, receipts, and chat. Supabase provides Postgres, auth, and storage; Mono handles open-banking account linking. Every request is scoped to a user through a dedicated service-manager layer, so domain services never touch the database directly.
 
 ## Features
 
-- Bank statement parsing
-- Spending categorization
-- Transaction analytics
+- Multi-bank PDF statement parsing (GTBank, Zenith, Access, Sterling, OPay, FirstBank)
+- Conversational AI assistant with tool access to a user's own transaction data
+- LLM-scored automatic categorization, with a user-editable rules engine
+- Budgets, receipt tracking, and recurring email reports
+- Nigerian tax Q&A backed by an ingested tax-law corpus
+- Open-banking account linking via Mono
