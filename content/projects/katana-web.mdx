@@ -1,8 +1,8 @@
 ---
 title: Katana Portfolio
-description: Oluwafemi Meduna's portfolio, showcasing projects and experience.
-overview: A personal portfolio that showcases my work, experience and writing. Built with Next.js, TypeScript, and Tailwind CSS. Features MDX-powered blog and project pages, Velite for content management, and Framer Motion for animations.
-approach: Velite processes MDX content at build time for fast static pages. Add blog posts to content/blog/ and projects to content/projects/, then run velite to regenerate. Uses next-themes for dark mode and Framer Motion for smooth transitions.
+description: Oluwafemi Meduna's portfolio — an editorial, magazine-style case-study site with a signature GSAP project stack, built on Next.js and MDX.
+overview: A personal portfolio that showcases my work, experience, and writing. The site runs an editorial design system on top of Next.js, TypeScript, and Tailwind CSS — JetBrains Mono as the single typeface, a cool-neutral zinc palette with one ink-navy accent, and content that leads the layout instead of decorative chrome. MDX-powered blog and project pages are processed at build time by Velite, with a signature GSAP-pinned project stack on the home page.
+approach: Velite processes MDX content at build time for fast static pages — add blog posts to content/blog/ and projects to content/projects/, then run velite to regenerate. The design system (documented in DESIGN.md) is deliberately restrained — one typeface, one accent color, sharp corners, and quiet motion that explains hierarchy rather than decorating it. Framer Motion drives page-load and scroll reveals; GSAP + ScrollTrigger power the one cinematic moment — the pinned project stack on Home. next-themes handles light/dark with per-project dual-theme cover images.
 coverImage: /katana-portfolio-cover.png
 coverImageDark: /katana-portfolio-cover-dark.png
 date: 2025-02-01
@@ -13,11 +13,11 @@ tags:
 featured: true
 repoUrl: https://github.com/brownfrosamurai/katana-web
 liveUrl: https://katana-web-rho.vercel.app/
-accentColor: yellow
 role: Full-stack Development, Design
 client: Personal
 deliverables:
   - Portfolio website
+  - Editorial design system
   - Blog with MDX
   - Project showcase
 tools:
@@ -26,21 +26,24 @@ tools:
   - Tailwind CSS
   - Velite
   - Framer Motion
+  - GSAP
   - Next-themes
 ---
 
 # Overview
 
-A personal portfolio that showcases my work and writing. Built with Next.js, TypeScript, and Tailwind CSS. Features MDX-powered blog and project pages, Velite for content management, and Framer Motion for animations.
+A personal portfolio that showcases my work, experience, and writing. The site runs an editorial design system on top of Next.js, TypeScript, and Tailwind CSS — JetBrains Mono as the single typeface, a cool-neutral zinc palette with one ink-navy accent, and content that leads the layout instead of decorative chrome. MDX-powered blog and project pages are processed at build time by Velite, with a signature GSAP-pinned project stack on the home page.
 
-![Portfolio homepage](https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80)
+![Portfolio homepage](/katana-portfolio-cover.png)
 
 ## Approach
 
-Velite processes MDX content at build time for fast static pages. Add blog posts to content/blog/ and projects to content/projects/, then run velite to regenerate. Uses next-themes for dark mode and Framer Motion for smooth transitions.
+Velite processes MDX content at build time for fast static pages — add blog posts to content/blog/ and projects to content/projects/, then run velite to regenerate. The design system (documented in DESIGN.md) is deliberately restrained — one typeface, one accent color, sharp corners, and quiet motion that explains hierarchy rather than decorating it. Framer Motion drives page-load and scroll reveals; GSAP + ScrollTrigger power the one cinematic moment — the pinned project stack on Home. next-themes handles light/dark with per-project dual-theme cover images.
 
 ## Features
 
-- MDX-powered blog and projects
-- Dark mode with next-themes
-- Responsive layout
+- MDX-powered blog and projects via Velite
+- Editorial design system: single typeface, restrained accent, sharp radii
+- GSAP-pinned project stack on the home page
+- Dual-theme (light/dark) cover images per project
+- Responsive layout with quiet, purposeful motion
