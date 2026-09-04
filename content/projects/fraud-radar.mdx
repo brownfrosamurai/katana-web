@@ -35,40 +35,15 @@ Fraud Radar scores streaming transactions for fraud risk in real time and visual
 
 ![Fraud Radar demo](/fraud-radar-cover.gif)
 
-## Architecture
+## Approach
 
-Six Docker Compose services:
+Six Docker Compose services stream, score, and store transactions in real time: Redpanda (Kafka-API) for streaming, Postgres for storage, a producer replaying holdout transactions, a dedicated consumer process that scores each transaction and batches writes, a FastAPI backend, and a React/TypeScript dashboard. Rather than exposing a raw model score, `decide(score, amount)` composes it with a bounded ruleset into **BLOCK / REVIEW / ALLOW** — the same "ML plus policy" shape real fraud systems use. Models were trained on the Kaggle Credit Card Fraud dataset (284,807 transactions, 492 fraud, ~0.17% prevalence) with a time-ordered 80/20 split, and evaluated on PR-AUC / precision / recall / F1 given the severe class imbalance.
 
-- **redpanda** — Kafka-API broker
-- **postgres** — `scored_transactions` store
-- **producer** — replays holdout transactions at 10 tx/sec; exposes an internal `POST /burst` (port 8001, not published to the host)
-- **consumer** — its own process, not embedded in FastAPI (the Kafka client isn't async and would block the event loop); scores each transaction, composes `decide(score, amount)`, and batches Postgres writes (flush every 10 rows or 100ms) to keep burst-time writes fast
-- **api** (`:8000`) — FastAPI: `POST /score`, `POST /demo/burst`, `GET /health`, `/transactions`, `/stats`, `/transactions/{id}/explanation`, WebSocket `/stream`
-- **dashboard** (`:3000`) — React + TypeScript, live feed, charts, alert table, burst button
+## Features
 
-Nginx blocks `/api/internal/*` from being reachable outside the Compose network. The WebSocket only pushes a transaction after its batch write commits, closing a read-after-write race against the explain endpoint.
-
-## Decision engine & explainability
-
-Rather than exposing a raw model score, `decide(score, amount)` composes it with a bounded ruleset into **BLOCK / REVIEW / ALLOW** — the same "ML plus policy" shape real fraud systems use. Clicking a REVIEW or BLOCK row computes on-demand permutation-importance (top 5 features) for the Isolation Forest model — lazily, only for the transaction clicked, not eagerly for 100% of traffic. ALLOW rows aren't clickable.
-
-## Models & evaluation
-
-Trained on the Kaggle Credit Card Fraud dataset (284,807 transactions, 492 fraud, ~0.17% prevalence), time-ordered 80/20 split, with models trained on non-fraud transactions in the train split and evaluated against the untouched holdout.
-
-Because of the severe class imbalance, results are reported as PR-AUC / precision / recall / F1 at `model_score >= 0.9`, not accuracy:
-
-| Model | PR-AUC | Precision@0.9 | Recall@0.9 | F1@0.9 |
-| --- | --- | --- | --- | --- |
-| Isolation Forest | 0.0297 | 0.0122 | 0.9067 | 0.0240 |
-| Autoencoder | 0.0781 | 0.0088 | 0.8533 | 0.0175 |
-
-Isolation Forest is the live stream scorer and the default on `POST /score`. `?model=autoencoder` returns 501 in the Docker image (weights are present, torch isn't) — documented in Future Work, not hidden.
-
-## Demo control
-
-A dashboard button calls `POST /demo/burst` on the API, which forwards to the producer: 50 holdout fraud rows replayed over 2 seconds, followed by a server-enforced 30-second cooldown. The dashboard never calls the producer directly.
-
-## Testing & docs
-
-`pytest -v` for the API, `npm test` for the dashboard. The README ships with a Mermaid architecture diagram, a recorded demo GIF, the metrics table above, a precision-recall curve image, and a Future Work section that names what was deliberately left out — SHAP, ensembling, a hosted live demo, a UI model toggle — rather than leaving it unaddressed.
+- Real-time scoring pipeline over a Kafka-API (Redpanda) stream, with batched writes to keep burst-time throughput fast
+- Model score composed with a bounded rules layer into BLOCK / REVIEW / ALLOW, not a raw anomaly threshold
+- On-demand, per-transaction permutation-importance explainability for flagged (REVIEW/BLOCK) rows
+- Live dashboard: real-time feed, charts, alert table, and a burst-demo control with a server-enforced cooldown
+- Isolation Forest and autoencoder models compared on PR-AUC/precision/recall/F1 against a time-ordered holdout
+- pytest + npm test coverage, with a Mermaid architecture diagram and recorded demo GIF in the README

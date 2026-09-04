@@ -1,0 +1,45 @@
+---
+title: Mutter
+description: Local-first, multi-language voice dictation for macOS — captures mic or system audio, transcribes on-device with whisper.cpp, and inserts cleaned-up text at the cursor with zero network calls.
+overview: Mutter turns speech into text entirely on-device. Press a hotkey to dictate into any app — including AI coding agents — or capture system audio Granola-style to transcribe meetings. Inference, history, and metrics all run locally, with no cloud calls, no subscriptions, and no paywall.
+approach: A Tauri + Rust app runs whisper.cpp locally for multilingual transcription (English, Yoruba, Spanish, Italian, French, Arabic), behind a swappable TranscriptionEngine/TextProcessor adapter layer so engines like Apple's on-device Speech framework can be added without a rewrite. Text is inserted at the cursor via the Accessibility API, with a clipboard-paste fallback for terminals. Every transcript is persisted to a local SQLite history store, and a glassmorphic "pill" HUD plus a settings dashboard — both Tauri webviews — surface live recording status and time-saved/WPM metrics, computed entirely locally with no telemetry.
+coverImage: /mutter-cover.jpg
+date: 2026-09-04
+slug: mutter
+tags:
+  - Personal Project
+  - Developer Tools
+featured: true
+repoUrl: https://github.com/brownfrosamurai/mutter
+role: Full-stack Development
+deliverables:
+  - macOS desktop app
+  - Local multilingual speech-to-text
+  - System-audio (meeting) capture mode
+  - Local history & metrics dashboard
+tools:
+  - Tauri
+  - Rust
+  - TypeScript
+  - whisper.cpp
+  - SQLite
+---
+
+# Overview
+
+Mutter turns speech into text entirely on-device. Press a hotkey to dictate into any app — including AI coding agents — or capture system audio Granola-style to transcribe meetings. Inference, history, and metrics all run locally, with no cloud calls, no subscriptions, and no paywall.
+
+![Mutter](/mutter-cover.jpg)
+
+## Approach
+
+A Tauri + Rust app runs whisper.cpp locally for multilingual transcription (English, Yoruba, Spanish, Italian, French, Arabic), behind a swappable TranscriptionEngine/TextProcessor adapter layer so engines like Apple's on-device Speech framework can be added without a rewrite. Text is inserted at the cursor via the Accessibility API, with a clipboard-paste fallback for terminals. Every transcript is persisted to a local SQLite history store, and a glassmorphic "pill" HUD plus a settings dashboard — both Tauri webviews — surface live recording status and time-saved/WPM metrics, computed entirely locally with no telemetry.
+
+## Features
+
+- Toggle-hotkey mic dictation and system-audio (meeting) capture, sharing one pipeline
+- 100% on-device whisper.cpp inference, multilingual including Yoruba
+- Escape-to-cancel state machine with a resumable countdown
+- Cursor text-insertion via the Accessibility API, clipboard-paste fallback for terminals
+- Local-only history and a metrics dashboard (time saved, WPM, totals, activity)
+- Swappable transcription-engine adapter architecture, no plugin marketplace
