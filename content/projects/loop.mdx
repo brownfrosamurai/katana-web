@@ -1,0 +1,49 @@
+---
+title: Loop
+description: Multi-tenant, event-driven order and loyalty platform for restaurants — ingests orders across channels with exactly-once processing, maintains an auditable loyalty ledger, and runs a guardrailed AI retention agent with a published decision-quality eval.
+overview: Loop simulates a restaurant-ops backend in the shape of a real production system. Orders land through an idempotent outbox pipeline, loyalty balances update transactionally, and an LLM-backed retention agent decides who to re-engage — bounded by send caps, an approval queue, and a full audit log — alongside a storefront-audit agent that reuses the same job and agent infrastructure.
+approach: A Fastify/Node.js API writes orders into MongoDB via an outbox transaction, tailed by Change Streams (not polling) for exactly-once delivery with a DLQ and a replay endpoint. BullMQ schedules a retention-agent worker that produces structured, guardrailed decisions — send caps, a human-approval queue, a full reasoning log — against real order history, validated against a hand-written golden-set eval rather than schema conformance alone. A storefront-audit agent reuses the same tenant/queue/decision-log plumbing to score page speed and completeness via Lighthouse. A Next.js dashboard renders a live order/ledger feed over WebSocket and the eval scorecard, deployed on AWS.
+coverImage: /loop-cover.gif
+date: 2026-09-04
+slug: loop
+tags:
+  - Personal Project
+  - Backend Engineering
+featured: true
+repoUrl: https://github.com/brownfrosamurai/loop
+role: Full-stack Development, Backend Engineering
+deliverables:
+  - Event-driven order-ingestion pipeline
+  - Loyalty ledger service
+  - Guardrailed AI retention agent + eval
+  - Storefront audit agent
+  - Live dashboard
+tools:
+  - TypeScript
+  - Node.js
+  - Fastify
+  - MongoDB
+  - Redis
+  - BullMQ
+  - Next.js
+  - AWS
+---
+
+# Overview
+
+Loop simulates a restaurant-ops backend in the shape of a real production system. Orders land through an idempotent outbox pipeline, loyalty balances update transactionally, and an LLM-backed retention agent decides who to re-engage — bounded by send caps, an approval queue, and a full audit log — alongside a storefront-audit agent that reuses the same job and agent infrastructure.
+
+![Loop](/loop-cover.gif)
+
+## Approach
+
+A Fastify/Node.js API writes orders into MongoDB via an outbox transaction, tailed by Change Streams (not polling) for exactly-once delivery with a DLQ and a replay endpoint. BullMQ schedules a retention-agent worker that produces structured, guardrailed decisions — send caps, a human-approval queue, a full reasoning log — against real order history, validated against a hand-written golden-set eval rather than schema conformance alone. A storefront-audit agent reuses the same tenant/queue/decision-log plumbing to score page speed and completeness via Lighthouse. A Next.js dashboard renders a live order/ledger feed over WebSocket and the eval scorecard, deployed on AWS.
+
+## Features
+
+- Idempotent multi-channel order ingestion with outbox, DLQ, and replay
+- Auditable, transactionally-correct loyalty ledger
+- Guardrailed AI retention agent: send caps, approval queue, full decision audit log
+- Published golden-set eval scoring the retention agent's decision quality, not just schema conformance
+- Storefront-audit agent reusing the retention agent's job/queue infrastructure
+- Live WebSocket dashboard with an eval scorecard

@@ -14,12 +14,6 @@ export function Footer() {
             >
               .katana
             </Link>
-            <Link
-              href="/uses"
-              className="text-xs font-medium lowercase text-muted transition-colors hover:text-foreground"
-            >
-              uses
-            </Link>
           </div>
           <SocialLinks />
         </div>
